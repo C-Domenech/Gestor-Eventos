@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="models.Evento" table="evento">
+        <id column="id_evento" name="id_evento" type="integer" >
+            <generator class="identity"/>
+        </id>
+        <property name="nombre" type="string"/>
+        <property name="fecha" type="timestamp"/>
+        <property name="aforo" type="integer"/>
+
+        <set table="reserva" name="reservas"  inverse="false">
+            <key>
+                <column name="id_evento"></column>
+            </key>
+            <one-to-many class="models.Reserva"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
+
