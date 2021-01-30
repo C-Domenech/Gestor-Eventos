@@ -84,13 +84,25 @@
                <graphic>
                   <ImageView fitHeight="62.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/ciclo.png" />
+                        <Image url="@../../../images/eventhor_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="288.0" layoutY="-1.0" prefHeight="600.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane layoutX="288.0" layoutY="-1.0" prefHeight="600.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="173.0" layoutY="216.0" text="Proyecto realizado por:" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="125.0" layoutY="313.0" text="Cristina Domenech Moreno" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
     </children>
 </AnchorPane>

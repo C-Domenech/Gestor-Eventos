@@ -17,15 +17,19 @@ package com.cdomenech.ui;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+import database.DBManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import models.Evento;
 
 /**
  * FXML Controller class
@@ -47,12 +51,23 @@ public class HomeController implements Initializable {
     @FXML
     private PieChart pieChartAforo;
 
+    DBManager DB = new DBManager();
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        Evento e = DB.datosEventoCercano();
+        pieChartData.add(new PieChart.Data("Reservado", e.getAforo() - e.getDisponible()));
+        pieChartData.add(new PieChart.Data("Disponible", e.getDisponible()));
+        lbTituloEventoCercano.setText(e.getNombre());
+        lbFechaEventoCercano.setText(e.getFechaFormatted());
+        pieChartAforo.setData(pieChartData);
     }
 
     @FXML

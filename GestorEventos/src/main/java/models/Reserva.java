@@ -36,9 +36,22 @@ public class Reserva {
 
     private Evento evento;
 
+    /**
+     *
+     */
     public Reserva() {
     }
 
+    /**
+     *
+     * @param nombre
+     * @param apellido1
+     * @param apellido2
+     * @param email
+     * @param evento
+     * @param n_acompanantes
+     * @param observaciones
+     */
     public Reserva(String nombre, String apellido1, String apellido2, String email, Evento evento, int n_acompanantes, String observaciones) {
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -49,83 +62,163 @@ public class Reserva {
         this.observaciones = observaciones;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_reserva() {
         return id_reserva;
     }
 
+    /**
+     *
+     * @param id_reserva
+     */
     public void setId_reserva(int id_reserva) {
         this.id_reserva = id_reserva;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getApellido1() {
         return apellido1;
     }
 
+    /**
+     *
+     * @param apellido1
+     */
     public void setApellido1(String apellido1) {
         this.apellido1 = apellido1;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getApellido2() {
         return apellido2;
     }
 
+    /**
+     *
+     * @param apellido2
+     */
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timestamp getFecha_inscripcion() {
         return fecha_inscripcion;
     }
 
+    /**
+     *
+     * @param fecha_inscripcion
+     */
     public void setFecha_inscripcion(Timestamp fecha_inscripcion) {
         this.fecha_inscripcion = fecha_inscripcion;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getN_acompanantes() {
         return n_acompanantes;
     }
 
+    /**
+     *
+     * @param n_acompanantes
+     */
     public void setN_acompanantes(int n_acompanantes) {
         this.n_acompanantes = n_acompanantes;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getObservaciones() {
         return observaciones;
     }
 
+    /**
+     *
+     * @param observaciones
+     */
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
 
+    /**
+     *
+     * @return
+     */
     public Evento getEvento() {
         return evento;
     }
 
+    /**
+     *
+     * @param evento
+     */
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAsistentesReserva() {
         int asistentesReserva = this.n_acompanantes + 1;
         return asistentesReserva;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getApellidos() {
         String apellidos = this.apellido1 + " " + this.apellido2;
         return apellidos;

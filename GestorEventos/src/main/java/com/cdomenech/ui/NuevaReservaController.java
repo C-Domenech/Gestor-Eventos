@@ -29,7 +29,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import models.Evento;
 import models.Reserva;
 
@@ -61,14 +63,17 @@ public class NuevaReservaController implements Initializable {
     @FXML
     private Label lbInfo;
 
-    DBManager DB;
+    DBManager DB = new DBManager();
+    Reserva reservaParaEditar;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DB = new DBManager();
+//        DB = new DBManager();
         cbEvento.setItems(DB.listarEventos());
         ObservableList<String> numeros = FXCollections.observableArrayList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         //        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
@@ -77,7 +82,7 @@ public class NuevaReservaController implements Initializable {
 
     @FXML
     private void realizarReserva(ActionEvent event) {
-        DB = new DBManager();
+//        DB = new DBManager();
         if (checkData()) {
             String nombre = tfNombre.getText();
             String apellido1 = tfApellido1.getText();
@@ -85,26 +90,45 @@ public class NuevaReservaController implements Initializable {
             String email = tfEmail.getText();
             Evento evento = cbEvento.getValue();
             int numAc = Integer.parseInt(cbNumAcom.getValue());
-            if (!DB.compruebaEmailReservaExiste(email)) {
-                if (numAc + 1 > evento.getDisponible()) {
-                    lbInfo.setText("Aforo completo");
-                } else {
-                    String observaciones = "";
-                    if (!taObservaciones.getText().isBlank()) {
-                        observaciones = taObservaciones.getText();
-                    }
-                    Reserva r = new Reserva(nombre, apellido1, apellido2, email, evento, numAc, observaciones);
-                    DB.crearReserva(r);
-                    btnBorrar.fire();
-                }
-            } else {
-                lbInfo.setText("Ya existe una reserva con ese email");
+
+            String observaciones = "";
+            if (!taObservaciones.getText().isBlank()) {
+                observaciones = taObservaciones.getText();
             }
 
-        }
+            if (numAc + 1 > evento.getDisponible() && reservaParaEditar == null || numAc + 1 > evento.getDisponible() && numAc > reservaParaEditar.getN_acompanantes()) {
+                lbInfo.setText("Aforo completo");
+            } else {
+                System.out.println(reservaParaEditar);
+                if (reservaParaEditar == null) {
+                    if (!DB.compruebaEmailReservaExiste(email, evento)) {
 
+                        Reserva r = new Reserva(nombre, apellido1, apellido2, email, evento, numAc, observaciones);
+                        DB.crearReserva(r);
+                        btnBorrar.fire();
+                        // Alert dialog that inform about the success of the operation
+                        App.generadorAlertaInformacion("Información", "Reserva realizada correctamente");
+                        Stage stage = (Stage) btnReservar.getScene().getWindow();
+                        stage.close();
+
+                    } else {
+                        lbInfo.setText("Ya existe una reserva con ese email");
+                    }
+                } else {
+                    DB.editarReserva(reservaParaEditar, nombre, apellido1, apellido2, email, evento, numAc, observaciones);
+                    // Alert dialog that inform about the success of the operation
+                    App.generadorAlertaInformacion("Información", "Reserva actualizada correctamente");
+                    Stage stage = (Stage) btnReservar.getScene().getWindow();
+                    stage.close();
+                }
+            }
+        }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkData() {
         boolean validData;
 
@@ -117,8 +141,12 @@ public class NuevaReservaController implements Initializable {
         return validData;
     }
 
+    /**
+     *
+     * @param email
+     * @return
+     */
     public boolean isValidEmail(String email) {
-//        String email = tfEmail.getText();
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         boolean validEmail = email.matches(regex);
         if (!validEmail) {
@@ -131,15 +159,32 @@ public class NuevaReservaController implements Initializable {
 
     @FXML
     private void borrarDatosIntroducidos(ActionEvent event) {
-        tfNombre.setText("");
-        tfApellido1.setText("");
-        tfApellido2.setText("");
-        tfEmail.setText("");
+        tfNombre.clear();
+        tfApellido1.clear();
+        tfApellido2.clear();
+        tfEmail.clear();
         cbEvento.getSelectionModel().clearSelection();
         cbNumAcom.getSelectionModel().clearSelection();
-        taObservaciones.setText("");
-        lbInfo.setText("");
+        taObservaciones.clear();
+        lbInfo.setText(null);
+    }
 
+    /**
+     *
+     * @param reserva
+     */
+    public void inicializaDatosParaEditar(Reserva reserva) {
+        reservaParaEditar = reserva;
+        tfNombre.setText(reserva.getNombre());
+        tfApellido1.setText(reserva.getApellido1());
+        tfApellido2.setText(reserva.getApellido2());
+        tfEmail.setText(reserva.getEmail());
+        cbEvento.getSelectionModel().select(reserva.getEvento());
+        cbNumAcom.getSelectionModel().select(reserva.getN_acompanantes());
+        taObservaciones.setText(reserva.getObservaciones());
+
+        btnReservar.setText("ACTUALIZAR");
+        btnBorrar.setDisable(true);
     }
 
 }

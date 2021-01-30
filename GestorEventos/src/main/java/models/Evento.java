@@ -35,63 +35,122 @@ public class Evento implements Serializable {
 
     private Set<Reserva> reservas;
 
+    /**
+     *
+     */
     public Evento() {
     }
 
+    /**
+     *
+     * @param nombre
+     * @param fecha
+     * @param aforo
+     */
     public Evento(String nombre, Timestamp fecha, int aforo) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.aforo = aforo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_evento() {
         return id_evento;
     }
 
+    /**
+     *
+     * @param id_evento
+     */
     public void setId_evento(int id_evento) {
         this.id_evento = id_evento;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timestamp getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAforo() {
         return aforo;
     }
 
+    /**
+     *
+     * @param aforo
+     */
     public void setAforo(int aforo) {
         this.aforo = aforo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Set<Reserva> getReservas() {
         return reservas;
     }
 
+    /**
+     *
+     * @param reservas
+     */
     public void setReservas(Set<Reserva> reservas) {
         this.reservas = reservas;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDisponible() {
         int disponible = this.aforo;
-        for (Reserva reserva : reservas) {
-            disponible -= reserva.getAsistentesReserva();
+        if (reservas != null) {
+            for (Reserva reserva : reservas) {
+                disponible -= reserva.getAsistentesReserva();
+            }
         }
         return disponible;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFechaFormatted() {
         String fechaFormatted = new SimpleDateFormat("dd/MM/yy HH:mm").format(this.fecha);
         return fechaFormatted;

@@ -17,6 +17,7 @@
 package database;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -25,19 +26,34 @@ import org.hibernate.cfg.Configuration;
  * @author Cristina Domenech <linkedin.com/in/c-domenech/>
  */
 public class HibernateUtil {
+
     private static final SessionFactory sessionFactory;
-    
+    private static Session s;
+
     static {
         try {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         } catch (HibernateException ex) {
             System.err.println("Initial SessionFactory creation failed. " + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
+    /**
+     *
+     * @return
+     */
+    public static Session openSession() {
+        s = getSessionFactory().openSession();
+        return s;
+    }
+
 }

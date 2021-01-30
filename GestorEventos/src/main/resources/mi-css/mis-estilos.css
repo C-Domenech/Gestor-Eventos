@@ -23,7 +23,6 @@
 .reservas-combo-box {
     -fx-font-size: 16px;
     -fx-prompt-text-fill: white;
-
 }
 
 .reservas-combo-box .cell {
@@ -44,7 +43,6 @@
     -fx-background-color: #2D75E8;
 }
 .table-view .column-header .label{
-
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-alignment: center;
@@ -53,7 +51,6 @@
 .table-view .cell{
     -fx-cell-size: 30;
     -fx-alignment: center;
-    -fx-text-fill: #000000;
 }
 
 .table-view .observaciones-cell {
@@ -63,9 +60,9 @@
 .table-row-cell:selected {
     -fx-background-color:  #7FACF3;
 }
+
 .table-row-cell:selected .text {
     -fx-fill : white ;
-
 }
 
 /*NUEVA RESERVA*/
@@ -74,27 +71,11 @@
     -fx-font-size: 14px;
 }
 
-.jfx-text-field {
-    /*    -fx-prompt-text-fill: #4d4d4d;*/
-
-}
-/*.text-field .input-line {
-    -fx-background-color:#41951C;
-}*/
-
 /*NUEVO EVENTO*/
-/*DatePicker*/
-/*.jfx-date-picker {
-    -fx-font-size: 14px;
-}*/
-/*TimePicker*/
-/*.jfx-time-picker {
-    -fx-font-size: 14px;
-}*/
 /*Date Picker en formulario*/
 .date-picker {
     -fx-font-size: 14px;
-    -fx-background-color: none;
+    -fx-background-color: transparent;
     -fx-border-width: 0 0 1 0;
     -fx-border-color: #4d4d4d;
 }
@@ -111,14 +92,14 @@
 }
 
 .date-picker:editable .arrow-button > * {
-    -fx-opacity: 0; /* Set the node in the button to be visible */
+    -fx-opacity: 0;
 }
 
 .date-picker .arrow-button {
-    -fx-background-image: url("../images/baseline_today_black_48dp.png"); /* Url of the icon */
-    -fx-background-size: 60% 60%; /* Can be `cover` or `100% 100%` ect. */
+    -fx-background-image: url("../images/baseline_today_black_48dp.png");
+    -fx-background-size: 60% 60%;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center center; /* Put the icon in the center */
+    -fx-background-position: center center;
     -fx-background-color: transparent;
 }
 
@@ -151,120 +132,23 @@
     -fx-font-size: 14px;
 }
 
-/*TODO*/
-.btnSuperior
-{
-    -fx-background-color : #393351;
-    -fx-background-radius :  20;
-}
-.btnSuperior:hover
-{
-    -fx-background-color : #524A7B;
-    -fx-background-radius :  20;
-}
-.btnSuperior:pressed
-{
-    -fx-background-color : #2F2B43;
-    -fx-background-radius :  20;
-}
-
-
-/*SOBRA*/
-.button3
-{
-    -fx-background-color : #141124;
-    -fx-background-radius :  0 0 0 0;
-}
-.button3:hover
-{
-    -fx-background-color : #524A7B;
-}
-.button3:pressed
-{
-    -fx-background-color : #2F2B43;
-}
-
-.button4
-{
-    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
-    -fx-background-radius :  30 30 30 30;
-}
-.button4:hover
-{
-    -fx-background-color :linear-gradient(to top left, #D4CEE3, #41951C);
-    -fx-background-radius :  30 30 30 30;
-}
-.button4:pressed
-{
-    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
-    -fx-background-radius :  30 30 30 30;
-}
-/*HASTA AQUÍ*/
-/*
-.combo-box
-{
-    -fx-background-color : #141124;
-    -fx-border-color:  #515658;
-    -fx-border-radius: 30;
-}
-.combo-box:hover
-{
-    -fx-background-color : #141124;
-    -fx-border-color:  #FFFFFF;
-    -fx-border-radius: 30;
-}
-.combo-box:pressed
-{
-    -fx-background-color : #141124;
-    -fx-border-color:  #FFFFFF;
-    -fx-border-radius: 30;
-}
-*/
-
-
-/* scroll bar starts here */
-
-/* The increment and decrement button CSS class of scrollbar */
-/*.table-view .increment-button ,.table-view .decrement-button {
-    -fx-background-color:transparent;
-    -fx-background-radius: 2em;
-
-}*/
-
-/* The main scrollbar **track** CSS class  */
-/*.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track{
-    -fx-background-color: transparent;
-    -fx-border-color:derive(  #2D75E8,80%);
-    -fx-background-radius: 2em;
-    -fx-border-radius:2em;
-}*/
-
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-/*.table-view .scroll-bar:horizontal .thumb,
-.table-view .scroll-bar:vertical .thumb {
-    -fx-background-color:derive( #2D75E8,90%);
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2em;
-
-}*/
-
-/* chart properties */
-
-.chart {
-    -fx-padding: 10px;
-    -fx-background-color: transparent;
-    -fx-legend-visible: false;
-}
-.chart-plot-background {
-    -fx-background-color:transparent;
-}
-
+/*CHART PIE en HOME*/
 .chart-pie {
-    -fx-border-color: derive(-fx-pie-color, 1%);
-    -fx-border-width: 0px;
+    -fx-border-color: transparent;
 }
-.linear-grad
-{
-    -fx-background-color: linear-gradient(to bottom left, #A868A0, #2D75E8);
+
+.data0.chart-pie {
+    -fx-pie-color: #FF004B;
+}
+.data1.chart-pie {
+    -fx-pie-color: #2D75E8;
+}
+
+.chart-pie-label {
+    -fx-font-size: 14px;
+    -fx-fill: white;
+}
+.chart-legend {
+    -fx-font-size: 14px;
+    -fx-background-color: white;
 }

@@ -18,14 +18,12 @@ package com.cdomenech.ui;
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTimePicker;
 import database.DBManager;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +34,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.stage.Stage;
 import models.Evento;
 
 /**
@@ -62,10 +61,13 @@ public class NuevoEventoController implements Initializable {
     @FXML
     private Label lbInfo;
 
-    DBManager DB;
+    DBManager DB = new DBManager();
+    Evento eventoParaEditar;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -79,20 +81,36 @@ public class NuevoEventoController implements Initializable {
 
     @FXML
     private void crearEvento(ActionEvent event) {
-        DB = new DBManager();
+//        DB = new DBManager();
         if (checkData()) {
+
             String nombre = tfNombreEvento.getText();
             int aforo = Integer.parseInt(tfAforo.getText());
-            System.out.println("fecha" + dpFecha.getValue());
             LocalDate dia = dpFecha.getValue();
             Timestamp fecha = Timestamp.valueOf(dia + " " + spHora.getValue() + ":" + spMin.getValue() + ":" + "00");
-            System.out.println(fecha);
-            Evento e = new Evento(nombre, fecha, aforo);
-            DB.crearEvento(e);
-            btnBorrar.fire();
+
+            if (eventoParaEditar == null) {
+                Evento e = new Evento(nombre, fecha, aforo);
+                DB.crearEvento(e);
+                btnBorrar.fire();
+                // Alert dialog that inform about the success of the operation
+                App.generadorAlertaInformacion("Información", "Evento creado correctamente");
+                Stage stage = (Stage) btnCrear.getScene().getWindow();
+                stage.close();
+            } else {
+                DB.editarEvento(eventoParaEditar, nombre, fecha, aforo);
+                // Alert dialog that inform about the success of the operation
+                App.generadorAlertaInformacion("Información", "Evento actualizado correctamente");
+                Stage stage = (Stage) btnCrear.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkData() {
         boolean validData;
         if (tfNombreEvento.getText().isBlank() || tfAforo.getText().isBlank() || dpFecha.getValue() == null) {
@@ -104,6 +122,11 @@ public class NuevoEventoController implements Initializable {
         return validData;
     }
 
+    /**
+     *
+     * @param aforo
+     * @return
+     */
     public boolean isValidAforo(String aforo) {
         boolean validAforo;
         try {
@@ -119,13 +142,32 @@ public class NuevoEventoController implements Initializable {
 
     @FXML
     private void borrarDatosIntroducidos(ActionEvent event) {
-        tfNombreEvento.setText("");
-        dpFecha.setValue(null);
+        tfNombreEvento.clear();
+        dpFecha.getEditor().clear();
         spHora.getValueFactory().setValue("00");
         spMin.getValueFactory().setValue("00");
-        tfAforo.setText("");
-        lbInfo.setText("");
+        tfAforo.clear();
+        lbInfo.setText(null);
+    }
 
+    /**
+     *
+     * @param evento
+     */
+    public void inicializaDatosParaEditar(Evento evento) {
+        eventoParaEditar = evento;
+        tfNombreEvento.setText(evento.getNombre());
+        tfAforo.setText(Integer.toString(evento.getAforo()));
+
+        LocalDate localDate = evento.getFecha().toLocalDateTime().toLocalDate();
+        dpFecha.setValue(localDate);
+
+        LocalDateTime localDT = evento.getFecha().toLocalDateTime();
+        spHora.getValueFactory().setValue(Integer.toString(localDT.getHour()));
+        spMin.getValueFactory().setValue(Integer.toString(localDT.getMinute()));
+
+        btnCrear.setText("ACTUALIZAR");
+        btnBorrar.setDisable(true);
     }
 
 }

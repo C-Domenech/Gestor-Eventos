@@ -82,7 +82,7 @@
                <graphic>
                   <ImageView fitHeight="62.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/ciclo.png" />
+                        <Image url="@../../../images/eventhor_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -91,17 +91,17 @@
         </AnchorPane>
         <AnchorPane layoutX="288.0" layoutY="-1.0" prefHeight="600.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="lbTituloEventoCercano" layoutX="38.0" layoutY="45.0" text="El lago de los cisnes" textFill="WHITE" AnchorPane.leftAnchor="38.0">
+            <Label fx:id="lbTituloEventoCercano" layoutX="38.0" layoutY="45.0" prefHeight="35.0" prefWidth="242.0" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="38.0">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lbFechaEventoCercano" layoutX="38.0" layoutY="80.0" text="23/01/2021 18:00" textFill="WHITE" AnchorPane.leftAnchor="38.0">
+            <Label fx:id="lbFechaEventoCercano" layoutX="52.0" layoutY="80.0" prefHeight="27.0" prefWidth="242.0" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="52.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <PieChart fx:id="pieChartAforo" layoutX="79.0" layoutY="120.0" prefHeight="468.0" prefWidth="555.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="120.0" />
+            <PieChart fx:id="pieChartAforo" layoutX="79.0" layoutY="94.0" prefHeight="468.0" prefWidth="555.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="94.0" />
          </children></AnchorPane>
     </children>
 </AnchorPane>

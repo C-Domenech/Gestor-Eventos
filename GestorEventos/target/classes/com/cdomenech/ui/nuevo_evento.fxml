@@ -78,7 +78,7 @@
                 </VBox>
                 <HBox alignment="CENTER" layoutY="368.0" prefHeight="126.0" prefWidth="415.0" spacing="30.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="368.0">
                     <children>
-                        <JFXButton fx:id="btnCrear" buttonType="RAISED" onAction="#crearEvento" text="RESERVAR" textAlignment="CENTER">
+                        <JFXButton fx:id="btnCrear" buttonType="RAISED" onAction="#crearEvento" text="CREAR" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>
