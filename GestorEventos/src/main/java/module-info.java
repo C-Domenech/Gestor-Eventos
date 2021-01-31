@@ -7,6 +7,7 @@ module com.cdomenech.ui {
     requires java.naming;
     requires java.base;
     requires com.jfoenix;
+    requires java.desktop;
 
     opens com.cdomenech.ui to javafx.fxml, org.hibernate.orm.core;
     opens models;

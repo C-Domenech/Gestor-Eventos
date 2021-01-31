@@ -22,7 +22,6 @@ import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart;
 import models.Evento;
 import models.Reserva;
 import org.hibernate.Session;
@@ -31,17 +30,19 @@ import org.hibernate.query.Query;
 
 /**
  *
- * @author Cristina Domenech <linkedin.com/in/c-domenech/>
+ * @author Cristina Domenech <linkedin.com/in/c-domenech github.com/C-Domenech>
  */
 public class DBManager {
 
+    // Attributes
     private static final Session s = HibernateUtil.openSession();
     private static Transaction t = s.beginTransaction();
 
     /**
+     * Get from the database all reservation in an specific event
      *
-     * @param evento
-     * @return
+     * @param evento selected event
+     * @return ObservableList to populate the TableView
      */
     public ObservableList<Reserva> listarReservasEvento(Evento evento) {
         ObservableList<Reserva> reservas = FXCollections.observableArrayList();
@@ -49,13 +50,14 @@ public class DBManager {
         query.setParameter("id_evento", evento.getId_evento());
 //        List<Reserva> listaReservas = query.list();
         reservas.addAll(query.list());
-        reservas.sort(Comparator.comparing(Reserva::getFecha_inscripcion));
+//        reservas.sort(Comparator.comparing(Reserva::getFecha_inscripcion));
         return reservas;
     }
 
     /**
+     * Save a new reservation
      *
-     * @param r
+     * @param r reservation created by an user
      */
     public void crearReserva(Reserva r) {
         checkTransaction();
@@ -65,6 +67,8 @@ public class DBManager {
     }
 
     /**
+     * Edit a specific reservation Set all the parameters and update it in the
+     * database
      *
      * @param r
      * @param nombre
@@ -90,6 +94,7 @@ public class DBManager {
     }
 
     /**
+     * Remove a specific reservation
      *
      * @param r
      */
@@ -101,10 +106,11 @@ public class DBManager {
     }
 
     /**
+     * Check if the email is in a reservation in a specific event
      *
      * @param email
      * @param evento
-     * @return
+     * @return if it is there or not
      */
     public boolean compruebaEmailReservaExiste(String email, Evento evento) {
         boolean existe;
@@ -121,11 +127,8 @@ public class DBManager {
         return existe;
     }
 
-//    public Evento obtenerEvento(Evento evento) {
-//        Evento e = s.get(Evento.class, evento.getId_evento());
-//        return e;
-//    }
     /**
+     * Get from the database all the events
      *
      * @return
      */
@@ -138,6 +141,7 @@ public class DBManager {
     }
 
     /**
+     * Save a new event
      *
      * @param e
      */
@@ -149,6 +153,8 @@ public class DBManager {
     }
 
     /**
+     * Edit a specific event Set all the parameters and update it in the
+     * database
      *
      * @param e
      * @param nombre
@@ -166,6 +172,7 @@ public class DBManager {
     }
 
     /**
+     * Remove an specific event
      *
      * @param e
      */
@@ -175,8 +182,15 @@ public class DBManager {
         t.commit();
         System.out.println("> Evento eliminado con éxito");
     }
+    // PUEDE QUE NO LO NECESITE
+
+    public Evento obtenerEvento(Evento evento) {
+        Evento e = s.get(Evento.class, evento.getId_evento());
+        return e;
+    }
 
     /**
+     * Get the closest event
      *
      * @return
      */

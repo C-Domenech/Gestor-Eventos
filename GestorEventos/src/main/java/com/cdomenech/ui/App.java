@@ -54,31 +54,33 @@ public class App extends Application {
     }
 
     /**
+     * Static method that generates info alerts
      *
-     * @param titulo
-     * @param contentText
+     * @param titulo title given to the alert
+     * @param contenido message of the alert
      */
-    public static void generadorAlertaInformacion(String titulo, String contentText) {
+    public static void generadorAlertaInformacion(String titulo, String contenido) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle(titulo);
-        alert.setContentText(contentText);
+        alert.setContentText(contenido);
         alert.showAndWait();
     }
 
     /**
+     * Static method that generates confirmation alerts
      *
-     * @param title
-     * @param text
-     * @param aceptar
-     * @param cancelar
-     * @param alerta
-     * @return
+     * @param titulo title given to the alert
+     * @param contenido message of the alert
+     * @param aceptar text of the first button
+     * @param cancelar text of the second button
+     * @param alerta type of alert
+     * @return the option selected by the user operation
      */
-    public static boolean generadorAlertaConfirmacion(String title, String text, String aceptar, String cancelar, Alert.AlertType alerta) {
+    public static boolean generadorAlertaConfirmacion(String titulo, String contenido, String aceptar, String cancelar, Alert.AlertType alerta) {
         Alert alert = new Alert(alerta);
-        alert.setTitle(title);
-        alert.setContentText(text);
+        alert.setTitle(titulo);
+        alert.setContentText(contenido);
         alert.setHeaderText(null);
         ButtonType btnAceptar = new ButtonType(aceptar, ButtonBar.ButtonData.YES);
         ButtonType btnCancelar = new ButtonType(cancelar, ButtonBar.ButtonData.CANCEL_CLOSE);

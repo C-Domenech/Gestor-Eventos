@@ -29,7 +29,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.Evento;
@@ -68,41 +67,49 @@ public class NuevaReservaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        DB = new DBManager();
+        // Set the eventos into the ComboBox
         cbEvento.setItems(DB.listarEventos());
+        // Set numbers into the ComboBox
         ObservableList<String> numeros = FXCollections.observableArrayList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        //        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
         cbNumAcom.setItems(numeros);
     }
 
+    /**
+     * Check the data given by the user and, if they are correct, update it into
+     * the database
+     *
+     * @param event
+     */
     @FXML
     private void realizarReserva(ActionEvent event) {
-//        DB = new DBManager();
         if (checkData()) {
+            // Get the data from the fields
             String nombre = tfNombre.getText();
             String apellido1 = tfApellido1.getText();
             String apellido2 = tfApellido2.getText();
             String email = tfEmail.getText();
             Evento evento = cbEvento.getValue();
             int numAc = Integer.parseInt(cbNumAcom.getValue());
-
             String observaciones = "";
             if (!taObservaciones.getText().isBlank()) {
                 observaciones = taObservaciones.getText();
             }
-
+            // Check if the aforo of the event won't be exceed by the changes or the new reservation
             if (numAc + 1 > evento.getDisponible() && reservaParaEditar == null || numAc + 1 > evento.getDisponible() && numAc > reservaParaEditar.getN_acompanantes()) {
                 lbInfo.setText("Aforo completo");
             } else {
-                System.out.println(reservaParaEditar);
+                // Check if it is a new reservation or the user is editing an existing one
                 if (reservaParaEditar == null) {
+                    // New element
+                    // Check if there is a reservation from the same person in the same event
                     if (!DB.compruebaEmailReservaExiste(email, evento)) {
-
+                        // Create a new Reserva object and send it to the DBManager class
                         Reserva r = new Reserva(nombre, apellido1, apellido2, email, evento, numAc, observaciones);
                         DB.crearReserva(r);
                         btnBorrar.fire();
@@ -115,6 +122,8 @@ public class NuevaReservaController implements Initializable {
                         lbInfo.setText("Ya existe una reserva con ese email");
                     }
                 } else {
+                    // Editing existing one
+                    // Send object that is going to be updated and the data
                     DB.editarReserva(reservaParaEditar, nombre, apellido1, apellido2, email, evento, numAc, observaciones);
                     // Alert dialog that inform about the success of the operation
                     App.generadorAlertaInformacion("Información", "Reserva actualizada correctamente");
@@ -126,8 +135,10 @@ public class NuevaReservaController implements Initializable {
     }
 
     /**
+     * Check if the fields are filled and if the email is correct
      *
-     * @return
+     * @return boolean if the fields have been completed and the email is
+     * correct
      */
     public boolean checkData() {
         boolean validData;
@@ -142,9 +153,10 @@ public class NuevaReservaController implements Initializable {
     }
 
     /**
+     * Check if the structure of the email is correct
      *
      * @param email
-     * @return
+     * @return boolean
      */
     public boolean isValidEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -157,6 +169,11 @@ public class NuevaReservaController implements Initializable {
         return validEmail;
     }
 
+    /**
+     * Reset the fields
+     *
+     * @param event
+     */
     @FXML
     private void borrarDatosIntroducidos(ActionEvent event) {
         tfNombre.clear();
@@ -170,6 +187,8 @@ public class NuevaReservaController implements Initializable {
     }
 
     /**
+     * If the user is going to edit a reservation, the fields are filled with
+     * the original data
      *
      * @param reserva
      */

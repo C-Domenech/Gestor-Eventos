@@ -29,7 +29,7 @@ import models.Reserva;
 
 /**
  *
- * @author Cristina
+ * @author Cristina Domenech <linkedin.com/in/c-domenech github.com/C-Domenech>
  */
 public class ReservasController implements Initializable {
 
@@ -68,8 +68,6 @@ public class ReservasController implements Initializable {
 
     DBManager DB = new DBManager();
 
-    ;
-
     /**
      * Method that refresh the data in the table
      */
@@ -81,40 +79,52 @@ public class ReservasController implements Initializable {
         cEmail.setCellValueFactory(new PropertyValueFactory<Reserva, String>("email"));
         cAsistentes.setCellValueFactory(new PropertyValueFactory<Reserva, Integer>("asistentesReserva"));
         cObservaciones.setCellValueFactory(new PropertyValueFactory<Reserva, String>("observaciones"));
-//        DB = new DBManager();
+        // Get evento from the ComboBox
         Evento evento = cbReservasEvento.getValue();
-
+        // Clear table
         tbReservas.getItems().clear();
+        // Set objects Reserva from the database
         tbReservas.setItems(DB.listarReservasEvento(evento));
-
+//        Evento e = DB.obtenerEvento(evento);
+        // Update the situation of the event
         lbAforo.setText(Integer.toString(evento.getAforo()));
         lbCompleto.setText(Integer.toString(evento.getAforo() - evento.getDisponible()));
         lbDisponible.setText(Integer.toString(evento.getDisponible()));
+//        System.out.println("EVENTO: " + evento.getReservas());
+//        System.out.println("E: " + e.getReservas());
     }
 
     /**
+     * Initializer of the window
      *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set the size of the columns in proportion to the window
         cNombre.prefWidthProperty().bind(tbReservas.widthProperty().divide(6)); // w * 1/6
         cApellidos.prefWidthProperty().bind(tbReservas.widthProperty().divide(4)); // w * 1/4
         cEmail.prefWidthProperty().bind(tbReservas.widthProperty().divide(4)); // w * 1/4
         cAsistentes.prefWidthProperty().bind(tbReservas.widthProperty().divide(6)); // w * 1/6
         cObservaciones.prefWidthProperty().bind(tbReservas.widthProperty().divide(6)); // w * 1/6
-
-//        DB = new DBManager();
+        // Set the eventos from the database into the ComboBox
         cbReservasEvento.setItems(DB.listarEventos());
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
 
     /**
+     * Set new root
      *
      * @param event
      * @throws IOException
@@ -124,11 +134,23 @@ public class ReservasController implements Initializable {
         App.setRoot("eventos");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaSobreNosotros(ActionEvent event) throws IOException {
         App.setRoot("sobre_nosotros");
     }
 
+    /**
+     * Open another window to create a new reservation
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void abrirVentanaNuevaReserva(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nueva_reserva.fxml"));
@@ -144,12 +166,18 @@ public class ReservasController implements Initializable {
         stage.setTitle("Realizar reserva");
         Image image = new Image("images/eventhor_icon.png");
         stage.getIcons().add(image);
-//        User can not do anything until the window is closed
+        // User can not do anything until the window is closed
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        // Repopulate the table
         actualizarTabla();
     }
 
+    /**
+     * From the context menu -> Open another window to edit a reservation
+     *
+     * @param event
+     */
     @FXML
     private void editarReserva(ActionEvent event) {
         Reserva reservaSeleccionada = tbReservas.getSelectionModel().getSelectedItem();
@@ -159,7 +187,7 @@ public class ReservasController implements Initializable {
             Parent root = fxmlLoader.load();
 
             NuevaReservaController controller = fxmlLoader.getController();
-            // Send through the controller the id of the selected order
+            // Send through the controller the selected object
             controller.inicializaDatosParaEditar(reservaSeleccionada);
 
             Scene scene = new Scene(root);
@@ -172,27 +200,25 @@ public class ReservasController implements Initializable {
             // User can not do anything until the window is closed
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            // Repopulate the table
             actualizarTabla();
+
         } catch (IOException ex) {
             Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * From the context menu -> Remove a reservation
+     *
+     * @param event
+     */
     @FXML
     private void eliminarReserva(ActionEvent event) {
         // Alert dialog to warn the user
-//        App.generadorAlertaConfirmacion("Eliminar reserva", "¿Deseas eliminar esta reserva?", "Sí", "Cancelar", Alert.AlertType.CONFIRMATION);
-//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.setHeaderText(null);
-//        alert.setTitle("Eliminar reserva");
-//        alert.setContentText("¿Deseas eliminar esta reserva?");
-//        ButtonType okButton = new ButtonType("Sí", ButtonBar.ButtonData.YES);
-//        ButtonType cancelButton = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-//        alert.getButtonTypes().setAll(okButton, cancelButton);
-//        alert.showAndWait();
         if (App.generadorAlertaConfirmacion("Eliminar reserva", "¿Deseas eliminar esta reserva?", "Sí", "Cancelar", Alert.AlertType.CONFIRMATION)) {
-//            DB = new DBManager();
             DB.eliminarReserva(tbReservas.getSelectionModel().getSelectedItem());
+            // Repopulate the table
             actualizarTabla();
         }
     }

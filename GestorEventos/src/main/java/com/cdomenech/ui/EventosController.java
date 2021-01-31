@@ -13,8 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,7 +24,7 @@ import models.Evento;
 
 /**
  *
- * @author Cristina
+ * @author Cristina Domenech <linkedin.com/in/c-domenech github.com/C-Domenech>
  */
 public class EventosController implements Initializable {
 
@@ -56,7 +54,7 @@ public class EventosController implements Initializable {
     DBManager DB = new DBManager();
 
     /**
-     * Method that refresh the data in the table
+     * Method that refresh the data of the table
      */
     public void actualizarTabla() {
         // Set the data that is going to be shown in the TableView
@@ -64,42 +62,68 @@ public class EventosController implements Initializable {
         cFecha.setCellValueFactory(new PropertyValueFactory<Evento, String>("fechaFormatted"));
         cAforo.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("aforo"));
         cDisponible.setCellValueFactory(new PropertyValueFactory<Evento, Integer>("disponible"));
-//        DB = new DBManager();
-        // Set objects Evento from the database
+        // Clear table
         tbEventos.getItems().clear();
+        // Set objects Evento from the database
         tbEventos.setItems(DB.listarEventos());
     }
 
     /**
+     * Initializer of the window
      *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cNombreEvento.prefWidthProperty().bind(tbEventos.widthProperty().divide(3)); // w * 1/9
-        cFecha.prefWidthProperty().bind(tbEventos.widthProperty().divide(3)); // w * 1/2
-        cAforo.prefWidthProperty().bind(tbEventos.widthProperty().divide(6)); // w * 1/5
-        cDisponible.prefWidthProperty().bind(tbEventos.widthProperty().divide(6)); // w * 1/5
+        // Set the size of the columns in proportion to the window
+        cNombreEvento.prefWidthProperty().bind(tbEventos.widthProperty().divide(3));
+        cFecha.prefWidthProperty().bind(tbEventos.widthProperty().divide(3));
+        cAforo.prefWidthProperty().bind(tbEventos.widthProperty().divide(6));
+        cDisponible.prefWidthProperty().bind(tbEventos.widthProperty().divide(6));
 
         actualizarTabla();
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaReservas(ActionEvent event) throws IOException {
         App.setRoot("reservas");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaSobreNosotros(ActionEvent event) throws IOException {
         App.setRoot("sobre_nosotros");
     }
 
+    /**
+     * Open another window to create a new event
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void abrirVentanaNuevoEvento(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nuevo_evento.fxml"));
@@ -118,10 +142,16 @@ public class EventosController implements Initializable {
         // User can not do anything until the window is closed
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
-
+        // Repopulate the table
         actualizarTabla();
     }
 
+    /**
+     * From the context menu -> Open another window to edit an event
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void editarEvento(ActionEvent event) throws IOException {
         Evento eventoSeleccionado = tbEventos.getSelectionModel().getSelectedItem();
@@ -130,40 +160,35 @@ public class EventosController implements Initializable {
         Parent root = fxmlLoader.load();
 
         NuevoEventoController controller = fxmlLoader.getController();
-        // Send through the controller the id of the selected order
+        // Send through the controller the selected object
         controller.inicializaDatosParaEditar(eventoSeleccionado);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setResizable(false); // perfect size -> 495,750
+        stage.setResizable(false);
         stage.setTitle("Editar Evento");
         Image image = new Image("images/eventhor_icon.png");
         stage.getIcons().add(image);
         // User can not do anything until the window is closed
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+        // Repopulate the table
         actualizarTabla();
-
     }
 
+    /**
+     * From the context menu -> Remove an event
+     *
+     * @param event
+     */
     @FXML
     private void eliminarEvento(ActionEvent event) {
         // Alert dialog to warn the user
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText(null);
-        alert.setTitle("Eliminar evento");
-        alert.setContentText("¿Deseas eliminar este evento?");
-        ButtonType okButton = new ButtonType("Sí", ButtonBar.ButtonData.YES);
-        ButtonType cancelButton = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(okButton, cancelButton);
-        alert.showAndWait();
-
-        if (alert.getResult().getButtonData().equals(okButton.getButtonData())) {
-//            DB = new DBManager();
+        if (App.generadorAlertaConfirmacion("Eliminar evento", "¿Deseas eliminar este evento?", "Sí", "Cancelar", Alert.AlertType.CONFIRMATION)) {
             DB.eliminarEvento(tbEventos.getSelectionModel().getSelectedItem());
+            // Repopulate the table
             actualizarTabla();
         }
     }
-
 }

@@ -23,7 +23,7 @@ import org.hibernate.cfg.Configuration;
 
 /**
  *
- * @author Cristina Domenech <linkedin.com/in/c-domenech/>
+ * @author Cristina Domenech <linkedin.com/in/c-domenech github.com/C-Domenech>
  */
 public class HibernateUtil {
 
@@ -48,6 +48,7 @@ public class HibernateUtil {
     }
 
     /**
+     * Method that opens the session and returns it
      *
      * @return
      */

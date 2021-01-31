@@ -66,11 +66,13 @@ public class NuevoEventoController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set data in the spinners
         ObservableList<String> num1 = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
         SpinnerValueFactory<String> horas = new SpinnerValueFactory.ListSpinnerValueFactory<String>(num1);
         spHora.setValueFactory(horas);
@@ -79,17 +81,25 @@ public class NuevoEventoController implements Initializable {
         spMin.setValueFactory(minutos);
     }
 
+    /**
+     * Check the data given by the user and, if they are correct, update it into
+     * the database
+     *
+     * @param event
+     */
     @FXML
     private void crearEvento(ActionEvent event) {
-//        DB = new DBManager();
         if (checkData()) {
-
+            // Get the data from the fields
             String nombre = tfNombreEvento.getText();
             int aforo = Integer.parseInt(tfAforo.getText());
             LocalDate dia = dpFecha.getValue();
             Timestamp fecha = Timestamp.valueOf(dia + " " + spHora.getValue() + ":" + spMin.getValue() + ":" + "00");
+            // Check if it is a new event or the user is editing an existing one
 
             if (eventoParaEditar == null) {
+                // New element
+                // Create a new Evento object and send it to the DBManager class
                 Evento e = new Evento(nombre, fecha, aforo);
                 DB.crearEvento(e);
                 btnBorrar.fire();
@@ -98,6 +108,8 @@ public class NuevoEventoController implements Initializable {
                 Stage stage = (Stage) btnCrear.getScene().getWindow();
                 stage.close();
             } else {
+                // Editing existing one
+                // Send object that is going to be updated and the data
                 DB.editarEvento(eventoParaEditar, nombre, fecha, aforo);
                 // Alert dialog that inform about the success of the operation
                 App.generadorAlertaInformacion("Información", "Evento actualizado correctamente");
@@ -108,8 +120,9 @@ public class NuevoEventoController implements Initializable {
     }
 
     /**
+     * Check if the fields are filled and if the email is correct
      *
-     * @return
+     * @return boolean if the fields have been completed
      */
     public boolean checkData() {
         boolean validData;
@@ -123,6 +136,7 @@ public class NuevoEventoController implements Initializable {
     }
 
     /**
+     * Check if aforo is a number
      *
      * @param aforo
      * @return
@@ -140,6 +154,11 @@ public class NuevoEventoController implements Initializable {
         return validAforo;
     }
 
+    /**
+     * Reset the fields
+     *
+     * @param event
+     */
     @FXML
     private void borrarDatosIntroducidos(ActionEvent event) {
         tfNombreEvento.clear();
@@ -151,6 +170,8 @@ public class NuevoEventoController implements Initializable {
     }
 
     /**
+     * If the user is going to edit an event, the fields are filled with the
+     * original data
      *
      * @param evento
      */

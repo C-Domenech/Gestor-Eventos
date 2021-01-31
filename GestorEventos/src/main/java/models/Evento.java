@@ -134,6 +134,7 @@ public class Evento implements Serializable {
     }
 
     /**
+     * Calculate the diference between the aforo and the amount of reservations
      *
      * @return
      */
@@ -148,6 +149,7 @@ public class Evento implements Serializable {
     }
 
     /**
+     * Convert Timestamp into a readable format
      *
      * @return
      */

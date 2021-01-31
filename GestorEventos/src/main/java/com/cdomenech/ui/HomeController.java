@@ -61,25 +61,47 @@ public class HomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Generates the element that can be set into the Pie Chart
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        // Get the data from the database
         Evento e = DB.datosEventoCercano();
+        // Add every element that need to be shown in the chart
         pieChartData.add(new PieChart.Data("Reservado", e.getAforo() - e.getDisponible()));
         pieChartData.add(new PieChart.Data("Disponible", e.getDisponible()));
         lbTituloEventoCercano.setText(e.getNombre());
         lbFechaEventoCercano.setText(e.getFechaFormatted());
+        // Set data into the Pie Chart
         pieChartAforo.setData(pieChartData);
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaReservas(ActionEvent event) throws IOException {
         App.setRoot("reservas");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaEventos(ActionEvent event) throws IOException {
         App.setRoot("eventos");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaSobreNosotros(ActionEvent event) throws IOException {
         App.setRoot("sobre_nosotros");

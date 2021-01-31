@@ -24,6 +24,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * FXML Controller class
@@ -41,27 +44,60 @@ public class SobreNosotrosController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Do nothing
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaHome(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaReservas(ActionEvent event) throws IOException {
         App.setRoot("reservas");
     }
 
+    /**
+     * Set new root
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void cambiarVistaEventos(ActionEvent event) throws IOException {
         App.setRoot("eventos");
+    }
+
+    /**
+     * Open the browser and go to a specific website
+     *
+     * @param event
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    @FXML
+    private void abrirWeb(ActionEvent event) throws URISyntaxException, IOException {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            Desktop.getDesktop().browse(new URI("https://github.com/C-Domenech/Gestor-Eventos"));
+        }
     }
 
 }
