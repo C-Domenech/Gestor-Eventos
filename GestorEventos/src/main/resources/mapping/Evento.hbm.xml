@@ -9,7 +9,7 @@
         <property name="fecha" type="timestamp"/>
         <property name="aforo" type="integer"/>
 
-        <set table="reserva" name="reservas"  inverse="false">
+        <set table="reserva" name="reservas" inverse="false" fetch="join">
             <key>
                 <column name="id_evento"></column>
             </key>

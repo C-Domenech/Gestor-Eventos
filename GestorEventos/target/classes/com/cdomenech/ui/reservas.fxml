@@ -130,7 +130,7 @@
                         </ContextMenu>
                     </contextMenu>
                 </TableView>
-                <HBox alignment="CENTER" layoutX="23.0" layoutY="528.0" prefHeight="58.0" prefWidth="668.0" spacing="10.0">
+                <HBox alignment="CENTER" layoutX="23.0" layoutY="528.0" prefHeight="58.0" prefWidth="668.0" spacing="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="21.0">
                     <children>
                         <HBox alignment="CENTER" prefHeight="58.0" prefWidth="668.0" spacing="10.0">
                             <children>

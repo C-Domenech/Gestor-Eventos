@@ -48,8 +48,8 @@ public class DBManager {
         ObservableList<Reserva> reservas = FXCollections.observableArrayList();
         Query query = s.createQuery("FROM Reserva WHERE id_evento = :id_evento");
         query.setParameter("id_evento", evento.getId_evento());
-//        List<Reserva> listaReservas = query.list();
         reservas.addAll(query.list());
+//        reservas.addAll(evento.getReservas());
 //        reservas.sort(Comparator.comparing(Reserva::getFecha_inscripcion));
         return reservas;
     }

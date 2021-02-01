@@ -170,7 +170,9 @@ public class ReservasController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
         // Repopulate the table
-        actualizarTabla();
+        if (cbReservasEvento.getValue() != null) {
+            actualizarTabla();
+        }
     }
 
     /**
