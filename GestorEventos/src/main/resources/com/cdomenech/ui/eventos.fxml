@@ -86,6 +86,18 @@
         </AnchorPane>
         <AnchorPane layoutX="288.0" layoutY="-1.0" prefHeight="600.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
+                <JFXButton fx:id="btnGenerar" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="595.0" layoutY="24.0" onAction="#generarInformeGeneral" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2f2b43" text="Generar informe" AnchorPane.rightAnchor="51.0">
+                    <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../images/baseline_picture_as_pdf_white_48dp.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
                 <JFXButton fx:id="btnNuevoEvento" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="44.0" layoutY="24.0" onAction="#abrirVentanaNuevoEvento" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2f2b43" text="Nueva reserva">
                     <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -108,6 +120,7 @@
                     <contextMenu>
                         <ContextMenu>
                             <items>
+                                <MenuItem fx:id="mInforme" mnemonicParsing="false" onAction="#generarInformeEvento" text="Generar informe" />
                                 <MenuItem fx:id="mEditar" mnemonicParsing="false" onAction="#editarEvento" text="Editar" />
                                 <MenuItem fx:id="mEliminar" mnemonicParsing="false" onAction="#eliminarEvento" text="Eliminar" />
                             </items>

@@ -8,6 +8,7 @@ module com.cdomenech.ui {
     requires java.base;
     requires com.jfoenix;
     requires java.desktop;
+    requires jasperreports;
 
     opens com.cdomenech.ui to javafx.fxml, org.hibernate.orm.core;
     opens models;

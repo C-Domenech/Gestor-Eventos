@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Evento;
@@ -77,7 +79,7 @@ public class ReservasController implements Initializable {
         cNombre.setCellValueFactory(new PropertyValueFactory<Reserva, String>("nombre"));
         cApellidos.setCellValueFactory(new PropertyValueFactory<Reserva, String>("apellidos"));
         cEmail.setCellValueFactory(new PropertyValueFactory<Reserva, String>("email"));
-        cAsistentes.setCellValueFactory(new PropertyValueFactory<Reserva, Integer>("asistentesReserva"));
+        cAsistentes.setCellValueFactory(new PropertyValueFactory<Reserva, Integer>("asistentes"));
         cObservaciones.setCellValueFactory(new PropertyValueFactory<Reserva, String>("observaciones"));
         // Get evento from the ComboBox
         Evento evento = cbReservasEvento.getValue();
@@ -85,13 +87,11 @@ public class ReservasController implements Initializable {
         tbReservas.getItems().clear();
         // Set objects Reserva from the database
         tbReservas.setItems(DB.listarReservasEvento(evento));
-//        Evento e = DB.obtenerEvento(evento);
+        Evento e = DB.obtenerEvento(evento);
         // Update the situation of the event
         lbAforo.setText(Integer.toString(evento.getAforo()));
         lbCompleto.setText(Integer.toString(evento.getAforo() - evento.getDisponible()));
         lbDisponible.setText(Integer.toString(evento.getDisponible()));
-//        System.out.println("EVENTO: " + evento.getReservas());
-//        System.out.println("E: " + e.getReservas());
     }
 
     /**
@@ -109,7 +109,7 @@ public class ReservasController implements Initializable {
         cAsistentes.prefWidthProperty().bind(tbReservas.widthProperty().divide(6)); // w * 1/6
         cObservaciones.prefWidthProperty().bind(tbReservas.widthProperty().divide(6)); // w * 1/6
         // Set the eventos from the database into the ComboBox
-        cbReservasEvento.setItems(DB.listarEventos());
+        cbReservasEvento.setItems(DB.listarEventosFuturos());
     }
 
     /**
@@ -195,7 +195,7 @@ public class ReservasController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setResizable(false); // perfect size -> 495,750
+            stage.setResizable(false);
             stage.setTitle("Editar Reserva");
             Image image = new Image("images/eventhor_icon.png");
             stage.getIcons().add(image);
@@ -223,5 +223,48 @@ public class ReservasController implements Initializable {
             // Repopulate the table
             actualizarTabla();
         }
+    }
+
+    /**
+     * Open a window with all the details of an specific order
+     *
+     * @param event
+     */
+    @FXML
+    private void detalleReserva(MouseEvent event) {
+        // EventHandler that is waiting a double click to open the window
+        tbReservas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                if (t.getClickCount() == 2) {
+                    Reserva reservaSeleccionada = tbReservas.getSelectionModel().getSelectedItem();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("nueva_reserva.fxml"));
+
+                        Parent root = fxmlLoader.load();
+
+                        NuevaReservaController controller = fxmlLoader.getController();
+                        // Send through the controller the selected object
+                        controller.inicializaDatosDetalle(reservaSeleccionada);
+
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setResizable(false);
+                        stage.setTitle("Reserva en detalle");
+                        Image image = new Image("images/eventhor_icon.png");
+                        stage.getIcons().add(image);
+                        // User can not do anything until the window is closed
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.showAndWait();
+                        // Repopulate the table
+                        actualizarTabla();
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(ReservasController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
     }
 }

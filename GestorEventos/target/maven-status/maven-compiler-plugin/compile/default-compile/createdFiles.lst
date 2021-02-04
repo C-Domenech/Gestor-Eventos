@@ -5,6 +5,7 @@ com\cdomenech\ui\App.class
 models\Evento.class
 database\HibernateUtil.class
 com\cdomenech\ui\ReservasController.class
+database\JRManager.class
 com\cdomenech\ui\NuevoEventoController.class
 com\cdomenech\ui\SobreNosotrosController.class
 models\Reserva.class

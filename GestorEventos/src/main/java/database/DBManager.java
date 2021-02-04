@@ -63,6 +63,7 @@ public class DBManager {
         checkTransaction();
         s.save(r);
         t.commit();
+        s.refresh(r);
         System.out.println("> Reserva realizada con éxito");
     }
 
@@ -86,10 +87,11 @@ public class DBManager {
         r.setApellido2(apellido2);
         r.setEmail(email);
         r.setEvento(evento);
-        r.setN_acompanantes(numAc);
+        r.setAsistentes(numAc);
         r.setObservaciones(observaciones);
         s.update(r);
         t.commit();
+        s.refresh(r);
         System.out.println("> Reserva editada con éxito");
     }
 
@@ -128,6 +130,19 @@ public class DBManager {
     }
 
     /**
+     * Get from the database all the future events
+     *
+     * @return
+     */
+    public ObservableList<Evento> listarEventosFuturos() {
+        ObservableList<Evento> eventos = FXCollections.observableArrayList();
+//        List<Evento> listaEventos = s.createQuery("FROM Evento").list();
+        eventos.addAll(s.createQuery("FROM Evento WHERE fecha > current_date()").list());
+        eventos.sort(Comparator.comparing(Evento::getFecha));
+        return eventos;
+    }
+
+    /**
      * Get from the database all the events
      *
      * @return
@@ -135,7 +150,7 @@ public class DBManager {
     public ObservableList<Evento> listarEventos() {
         ObservableList<Evento> eventos = FXCollections.observableArrayList();
 //        List<Evento> listaEventos = s.createQuery("FROM Evento").list();
-        eventos.addAll(s.createQuery("FROM Evento WHERE fecha > current_date()").list());
+        eventos.addAll(s.createQuery("FROM Evento").list());
         eventos.sort(Comparator.comparing(Evento::getFecha));
         return eventos;
     }
@@ -182,10 +197,10 @@ public class DBManager {
         t.commit();
         System.out.println("> Evento eliminado con éxito");
     }
-    // PUEDE QUE NO LO NECESITE
 
     public Evento obtenerEvento(Evento evento) {
         Evento e = s.get(Evento.class, evento.getId_evento());
+        s.refresh(e);
         return e;
     }
 

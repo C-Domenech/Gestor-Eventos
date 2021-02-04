@@ -60,6 +60,8 @@ public class NuevoEventoController implements Initializable {
     private JFXButton btnBorrar;
     @FXML
     private Label lbInfo;
+    @FXML
+    private Label lbSuperior;
 
     DBManager DB = new DBManager();
     Evento eventoParaEditar;
@@ -187,6 +189,7 @@ public class NuevoEventoController implements Initializable {
         spHora.getValueFactory().setValue(Integer.toString(localDT.getHour()));
         spMin.getValueFactory().setValue(Integer.toString(localDT.getMinute()));
 
+        lbSuperior.setText("Editar evento");
         btnCrear.setText("ACTUALIZAR");
         btnBorrar.setDisable(true);
     }

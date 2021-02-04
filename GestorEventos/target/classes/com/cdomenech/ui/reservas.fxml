@@ -113,7 +113,7 @@
                     </cursor>
                 </JFXButton>
                 <JFXComboBox fx:id="cbReservasEvento" focusColor="WHITE" labelFloat="true" layoutX="305.0" layoutY="33.0" onAction="#actualizarTabla" prefHeight="39.0" prefWidth="345.0" promptText="Selecciona un evento" styleClass="reservas-combo-box" unFocusColor="WHITE" AnchorPane.rightAnchor="62.0" />
-                <TableView fx:id="tbReservas" layoutX="23.0" layoutY="116.0" prefHeight="407.0" prefWidth="668.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="116.0">
+                <TableView fx:id="tbReservas" layoutX="23.0" layoutY="116.0" onMouseClicked="#detalleReserva" prefHeight="407.0" prefWidth="668.0" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="116.0">
                     <columns>
                         <TableColumn fx:id="cNombre" prefWidth="75.0" text="Nombre" />
                         <TableColumn fx:id="cApellidos" prefWidth="75.0" text="Apellidos" />

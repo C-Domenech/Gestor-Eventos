@@ -10,7 +10,7 @@
         <property name="apellido2" type="string"/>
         <property name="email" type="string"/>
         <property name="fecha_inscripcion" type="timestamp"/>
-        <property name="n_acompanantes" type="integer"/>
+        <property name="asistentes" type="integer"/>
         <property name="observaciones" type="text"/>
 
         <many-to-one class="models.Evento" name="evento" fetch="select">

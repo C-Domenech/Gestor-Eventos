@@ -31,7 +31,7 @@ public class Reserva {
     private String apellido2;
     private String email;
     private Timestamp fecha_inscripcion;
-    private int n_acompanantes;
+    private int asistentes;
     private String observaciones;
 
     private Evento evento;
@@ -58,7 +58,7 @@ public class Reserva {
         this.apellido2 = apellido2;
         this.email = email;
         this.evento = evento;
-        this.n_acompanantes = n_acompanantes;
+        this.asistentes = n_acompanantes;
         this.observaciones = observaciones;
     }
 
@@ -162,16 +162,16 @@ public class Reserva {
      *
      * @return
      */
-    public int getN_acompanantes() {
-        return n_acompanantes;
+    public int getAsistentes() {
+        return asistentes;
     }
 
     /**
      *
-     * @param n_acompanantes
+     * @param asistentes
      */
-    public void setN_acompanantes(int n_acompanantes) {
-        this.n_acompanantes = n_acompanantes;
+    public void setAsistentes(int asistentes) {
+        this.asistentes = asistentes;
     }
 
     /**
@@ -210,15 +210,6 @@ public class Reserva {
      *
      * @return
      */
-    public int getAsistentesReserva() {
-        int asistentesReserva = this.n_acompanantes + 1;
-        return asistentesReserva;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getApellidos() {
         String apellidos = this.apellido1 + " " + this.apellido2;
         return apellidos;
@@ -226,7 +217,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "id_reserva=" + id_reserva + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", email=" + email + ", evento=" + evento + ", n_acompanantes=" + n_acompanantes + ", observaciones=" + observaciones + '}';
+        return "Reserva{" + "id_reserva=" + id_reserva + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", email=" + email + ", evento=" + evento + ", n_acompanantes=" + asistentes + ", observaciones=" + observaciones + '}';
     }
 
 }

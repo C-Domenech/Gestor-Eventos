@@ -64,6 +64,8 @@ public class NuevaReservaController implements Initializable {
 
     DBManager DB = new DBManager();
     Reserva reservaParaEditar;
+    @FXML
+    private Label lbSuperior;
 
     /**
      * Initializes the controller class.
@@ -74,7 +76,7 @@ public class NuevaReservaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Set the eventos into the ComboBox
-        cbEvento.setItems(DB.listarEventos());
+        cbEvento.setItems(DB.listarEventosFuturos());
         // Set numbers into the ComboBox
         ObservableList<String> numeros = FXCollections.observableArrayList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         cbNumAcom.setItems(numeros);
@@ -95,13 +97,13 @@ public class NuevaReservaController implements Initializable {
             String apellido2 = tfApellido2.getText();
             String email = tfEmail.getText();
             Evento evento = cbEvento.getValue();
-            int numAc = Integer.parseInt(cbNumAcom.getValue());
+            int asistentes = Integer.parseInt(cbNumAcom.getValue()) + 1;
             String observaciones = "";
             if (!taObservaciones.getText().isBlank()) {
                 observaciones = taObservaciones.getText();
             }
             // Check if the aforo of the event won't be exceed by the changes or the new reservation
-            if (numAc + 1 > evento.getDisponible() && reservaParaEditar == null || numAc + 1 > evento.getDisponible() && numAc > reservaParaEditar.getN_acompanantes()) {
+            if (asistentes > evento.getDisponible() && reservaParaEditar == null || asistentes > evento.getDisponible() && asistentes > reservaParaEditar.getAsistentes()) {
                 lbInfo.setText("Aforo completo");
             } else {
                 // Check if it is a new reservation or the user is editing an existing one
@@ -110,7 +112,7 @@ public class NuevaReservaController implements Initializable {
                     // Check if there is a reservation from the same person in the same event
                     if (!DB.compruebaEmailReservaExiste(email, evento)) {
                         // Create a new Reserva object and send it to the DBManager class
-                        Reserva r = new Reserva(nombre, apellido1, apellido2, email, evento, numAc, observaciones);
+                        Reserva r = new Reserva(nombre, apellido1, apellido2, email, evento, asistentes, observaciones);
                         DB.crearReserva(r);
                         btnBorrar.fire();
                         // Alert dialog that inform about the success of the operation
@@ -124,7 +126,7 @@ public class NuevaReservaController implements Initializable {
                 } else {
                     // Editing existing one
                     // Send object that is going to be updated and the data
-                    DB.editarReserva(reservaParaEditar, nombre, apellido1, apellido2, email, evento, numAc, observaciones);
+                    DB.editarReserva(reservaParaEditar, nombre, apellido1, apellido2, email, evento, asistentes, observaciones);
                     // Alert dialog that inform about the success of the operation
                     App.generadorAlertaInformacion("Información", "Reserva actualizada correctamente");
                     Stage stage = (Stage) btnReservar.getScene().getWindow();
@@ -199,11 +201,47 @@ public class NuevaReservaController implements Initializable {
         tfApellido2.setText(reserva.getApellido2());
         tfEmail.setText(reserva.getEmail());
         cbEvento.getSelectionModel().select(reserva.getEvento());
-        cbNumAcom.getSelectionModel().select(reserva.getN_acompanantes());
+        cbNumAcom.getSelectionModel().select(reserva.getAsistentes() - 1);
         taObservaciones.setText(reserva.getObservaciones());
 
+        lbSuperior.setText("Editar reserva");
         btnReservar.setText("ACTUALIZAR");
         btnBorrar.setDisable(true);
+    }
+
+    /**
+     * Set the details of the reservation
+     *
+     * @param reserva
+     */
+    public void inicializaDatosDetalle(Reserva reserva) {
+        tfNombre.setText(reserva.getNombre());
+        tfApellido1.setText(reserva.getApellido1());
+        tfApellido2.setText(reserva.getApellido2());
+        tfEmail.setText(reserva.getEmail());
+        cbEvento.getSelectionModel().select(reserva.getEvento());
+        cbNumAcom.getSelectionModel().select(reserva.getAsistentes() - 1);
+        taObservaciones.setText(reserva.getObservaciones());
+        // User can not change any field
+        tfNombre.setDisable(true);
+        tfApellido1.setDisable(true);
+        tfApellido2.setDisable(true);
+        tfEmail.setDisable(true);
+        cbEvento.setDisable(true);
+        cbNumAcom.setDisable(true);
+        taObservaciones.setDisable(true);
+
+        tfNombre.setStyle("-fx-opacity: 1.0;");
+        tfApellido1.setStyle("-fx-opacity: 1.0;");
+        tfApellido2.setStyle("-fx-opacity: 1.0;");
+        tfEmail.setStyle("-fx-opacity: 1.0;");
+        cbEvento.setStyle("-fx-opacity: 1.0;");
+        cbNumAcom.setStyle("-fx-opacity: 1.0;");
+        taObservaciones.setStyle("-fx-opacity: 1.0;");
+
+        lbSuperior.setText("Reserva en detalle");
+        btnReservar.setVisible(false);
+        btnBorrar.setVisible(false);
     }
 
 }

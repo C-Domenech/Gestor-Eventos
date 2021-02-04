@@ -140,9 +140,9 @@ public class Evento implements Serializable {
      */
     public int getDisponible() {
         int disponible = this.aforo;
-        if (reservas != null) {
-            for (Reserva reserva : reservas) {
-                disponible -= reserva.getAsistentesReserva();
+        if (this.reservas != null) {
+            for (Reserva reserva : this.reservas) {
+                disponible -= reserva.getAsistentes();
             }
         }
         return disponible;
