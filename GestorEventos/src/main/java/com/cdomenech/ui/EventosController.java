@@ -211,6 +211,14 @@ public class EventosController implements Initializable {
         }
     }
 
+    /**
+     * Open default file chooser where the user can select a dicrectory and the
+     * filename
+     *
+     * @param event
+     * @throws IOException
+     * @throws JRException
+     */
     @FXML
     private void generarInformeGeneral(ActionEvent event) throws IOException, JRException {
         FileChooser fileChooser = new FileChooser();
@@ -223,6 +231,13 @@ public class EventosController implements Initializable {
         App.generadorAlertaInformacion("Información", "Informe generado correctamente");
     }
 
+    /**
+     * Open default file chooser where the user can select a dicrectory and the
+     * filename
+     *
+     * @param event
+     * @throws JRException
+     */
     @FXML
     private void generarInformeEvento(ActionEvent event) throws JRException {
         Evento eventoSeleccionado = tbEventos.getSelectionModel().getSelectedItem();
