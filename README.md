@@ -17,7 +17,7 @@ Gestor de eventos realizado usando Java como lenguaje principal, JavaFX y JFoeni
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia GNU General Public License - mira el archivo LICENSE para detalles
+Este proyecto está bajo la Licencia GNU General Public License - mira el archivo LICENSE para más detalles
 
 ---
 
