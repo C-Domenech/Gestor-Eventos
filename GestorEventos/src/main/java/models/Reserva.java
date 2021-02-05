@@ -25,6 +25,7 @@ import java.sql.Timestamp;
  */
 public class Reserva {
 
+    // Attributes
     private int id_reserva;
     private String nombre;
     private String apellido1;
@@ -37,12 +38,13 @@ public class Reserva {
     private Evento evento;
 
     /**
-     *
+     * Empty constructor
      */
     public Reserva() {
     }
 
     /**
+     * Constructor
      *
      * @param nombre
      * @param apellido1
@@ -62,6 +64,7 @@ public class Reserva {
         this.observaciones = observaciones;
     }
 
+    // Getters & Setters
     /**
      *
      * @return

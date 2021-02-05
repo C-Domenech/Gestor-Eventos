@@ -28,6 +28,7 @@ import java.util.Set;
  */
 public class Evento implements Serializable {
 
+    // Atributtes
     private int id_evento;
     private String nombre;
     private Timestamp fecha;
@@ -36,12 +37,13 @@ public class Evento implements Serializable {
     private Set<Reserva> reservas;
 
     /**
-     *
+     * Empty constructor
      */
     public Evento() {
     }
 
     /**
+     * Constructor
      *
      * @param nombre
      * @param fecha
@@ -53,6 +55,7 @@ public class Evento implements Serializable {
         this.aforo = aforo;
     }
 
+    // Getters & Setters
     /**
      *
      * @return
