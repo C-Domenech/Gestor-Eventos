@@ -50,7 +50,7 @@ public class DBManager {
         query.setParameter("id_evento", evento.getId_evento());
         reservas.addAll(query.list());
 //        reservas.addAll(evento.getReservas());
-//        reservas.sort(Comparator.comparing(Reserva::getFecha_inscripcion));
+        reservas.sort(Comparator.comparing(Reserva::getFecha_inscripcion));
         return reservas;
     }
 

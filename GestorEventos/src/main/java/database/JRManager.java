@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -62,7 +60,7 @@ public class JRManager {
     public Connection conectar() throws IOException {
         try {
             Properties params = new Properties();
-            params.load(new FileReader("bbdd_phpmyadmin.cfg"));
+            params.load(new FileReader("db_config.cfg"));
 
             String protocol = params.getProperty("protocol");
             String server = params.getProperty("server");

@@ -1,0 +1,27 @@
+site_name: Eventhor
+nav:
+ - Bienvenido: index.md
+ - Guía de usuario: user_guide.md
+ - Sobre nosotros: about.md
+theme:
+  name: material
+  language: es
+  logo: assets/eventhor_icon.png
+  features:
+    # - navigation.tabs
+  palette:
+    primary: white
+    accent: pink
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/C-Domenech
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/c-domenech/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/cdomenech_
+copyright: Copyright &copy; 2021 Cristina Domenech
+markdown_extensions:
+  - attr_list
+  - pymdownx.snippets
+

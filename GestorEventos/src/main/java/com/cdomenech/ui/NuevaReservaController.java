@@ -30,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import models.Evento;
 import models.Reserva;
@@ -61,11 +62,11 @@ public class NuevaReservaController implements Initializable {
     private JFXButton btnBorrar;
     @FXML
     private Label lbInfo;
+    @FXML
+    private Label lbSuperior;
 
     DBManager DB = new DBManager();
     Reserva reservaParaEditar;
-    @FXML
-    private Label lbSuperior;
 
     /**
      * Initializes the controller class.
@@ -80,6 +81,7 @@ public class NuevaReservaController implements Initializable {
         // Set numbers into the ComboBox
         ObservableList<String> numeros = FXCollections.observableArrayList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         cbNumAcom.setItems(numeros);
+
     }
 
     /**

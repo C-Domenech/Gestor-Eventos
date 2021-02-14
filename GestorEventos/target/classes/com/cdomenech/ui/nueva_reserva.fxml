@@ -5,12 +5,13 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="591.0" maxWidth="600.0" minHeight="485.0" minWidth="600.0" prefHeight="566.0" prefWidth="600.0" stylesheets="@../../../mi-css/mis-estilos.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cdomenech.ui.NuevaReservaController">
+<AnchorPane id="AnchorPane" maxHeight="591.0" maxWidth="600.0" minHeight="485.0" minWidth="600.0" prefHeight="566.0" prefWidth="600.0" stylesheets="@../../../mi-css/mis-estilos.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cdomenech.ui.NuevaReservaController">
     <children>
         <AnchorPane layoutY="14.0" prefHeight="74.0" prefWidth="600.0" style="-fx-background-color: #2F2B43;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -29,16 +30,25 @@
                             <font>
                                 <Font size="14.0" />
                             </font>
+                     <tooltip>
+                        <Tooltip text="Introduzca su nombre" />
+                     </tooltip>
                         </JFXTextField>
                         <JFXTextField fx:id="tfApellido1" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Primer apellido *">
                             <font>
                                 <Font size="14.0" />
                             </font>
+                     <tooltip>
+                        <Tooltip text="Introduzca su primer apellido" />
+                     </tooltip>
                         </JFXTextField>
                         <JFXTextField fx:id="tfApellido2" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Segundo apellido *">
                             <font>
                                 <Font size="14.0" />
                             </font>
+                     <tooltip>
+                        <Tooltip text="Introduzca su segundo apellido" />
+                     </tooltip>
                         </JFXTextField>
                     </children>
                 </VBox>
@@ -48,15 +58,27 @@
                             <font>
                                 <Font size="14.0" />
                             </font>
+                     <tooltip>
+                        <Tooltip text="Introduzca su email. Ejemplo: nombre@email.com" />
+                     </tooltip>
                         </JFXTextField>
-                        <JFXComboBox fx:id="cbEvento" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Selecciona el evento *" styleClass="form-combo-box" />
-                        <JFXComboBox fx:id="cbNumAcom" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Nº de acompañantes *" styleClass="form-combo-box" />
+                        <JFXComboBox fx:id="cbEvento" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Selecciona el evento *" styleClass="form-combo-box">
+                     <tooltip>
+                        <Tooltip text="Seleccione un evento" />
+                     </tooltip></JFXComboBox>
+                        <JFXComboBox fx:id="cbNumAcom" focusColor="#393351" labelFloat="true" prefHeight="30.0" prefWidth="190.0" promptText="Nº de acompañantes *" styleClass="form-combo-box">
+                     <tooltip>
+                        <Tooltip text="Seleccione el número de acompañantes (sin incluirse)" />
+                     </tooltip></JFXComboBox>
                     </children>
                 </VBox>
                 <JFXTextArea fx:id="taObservaciones" focusColor="#393351" layoutX="68.0" layoutY="271.0" prefHeight="88.0" prefWidth="464.0" promptText="Observaciones" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="271.0">
                     <font>
                         <Font size="14.0" />
                     </font>
+               <tooltip>
+                  <Tooltip text="Introduzca sus observaciones" />
+               </tooltip>
                 </JFXTextArea>
                 <HBox alignment="CENTER" layoutY="395.0" prefHeight="99.0" prefWidth="600.0" spacing="30.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="395.0">
                     <children>
