@@ -10,6 +10,7 @@ Gestor de eventos realizado usando Java como lenguaje principal, JavaFX y JFoeni
 * [Hibernate](https://hibernate.org//) - Herramienta de mapeo objecto-relacional
 * [JasperReports](https://community.jaspersoft.com/documentation?version=61916) - Creación de informes
 * [Maven](https://maven.apache.org/) - Gestión y construcción de proyectos
+* [MkDocs](https://mkdocs.readthedocs.io/) - Documentación de ayuda al usuario
 
 ## Autor ✒️
 
