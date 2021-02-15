@@ -5,9 +5,8 @@ import database.DBManager;
 import database.JRManager;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -27,7 +25,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import models.Evento;
 import net.sf.jasperreports.engine.JRException;
 
@@ -67,6 +64,8 @@ public class EventosController implements Initializable {
     DBManager DB = new DBManager();
 
     JRManager jr;
+    @FXML
+    private JFXButton btnAyuda;
 
     public EventosController() throws IOException {
         this.jr = new JRManager();
@@ -249,5 +248,29 @@ public class EventosController implements Initializable {
         jr.generadorInformeEvento(eventoSeleccionado, file);
 
         App.generadorAlertaInformacion("Información", "Informe generado correctamente");
+    }
+
+    @FXML
+    private void mostrarAyuda(ActionEvent event) throws URISyntaxException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("web_view.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        WebViewController controller = fxmlLoader.getController();
+
+        // Send through the controller the url
+        controller.inicializarWebView("https://eventhor-help.readthedocs.io/es/latest/guide/#eventos");
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Ayuda");
+        Image image = new Image("images/eventhor_icon.png");
+        stage.getIcons().add(image);
+        // Users are free to do what they need
+        stage.initModality(Modality.NONE);
+        stage.show();
+//        App.mostrarAyuda("https://eventhor-help.readthedocs.io/es/latest/guide/#eventos");
     }
 }

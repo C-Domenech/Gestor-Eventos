@@ -20,6 +20,8 @@ package com.cdomenech.ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import database.DBManager;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -29,11 +31,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Evento;
 
@@ -65,6 +72,8 @@ public class NuevoEventoController implements Initializable {
 
     DBManager DB = new DBManager();
     Evento eventoParaEditar;
+    @FXML
+    private JFXButton btnAyuda;
 
     /**
      * Initializes the controller class.
@@ -192,6 +201,30 @@ public class NuevoEventoController implements Initializable {
         lbSuperior.setText("Editar evento");
         btnCrear.setText("ACTUALIZAR");
         btnBorrar.setDisable(true);
+    }
+
+    @FXML
+    private void mostrarAyuda(ActionEvent event) throws URISyntaxException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("web_view.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        WebViewController controller = fxmlLoader.getController();
+
+        // Send through the controller the url
+        controller.inicializarWebView("https://eventhor-help.readthedocs.io/es/latest/guide/#crear-un-evento");
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Ayuda");
+        Image image = new Image("images/eventhor_icon.png");
+        stage.getIcons().add(image);
+        // Users are free to do what they need
+        stage.initModality(Modality.NONE);
+        stage.show();
+//        App.mostrarAyuda("https://eventhor-help.readthedocs.io/es/latest/guide/#nuevo-evento");
     }
 
 }

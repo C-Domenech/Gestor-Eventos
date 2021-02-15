@@ -11,4 +11,5 @@ com\cdomenech\ui\NuevoEventoController.class
 com\cdomenech\ui\SobreNosotrosController.class
 models\Reserva.class
 com\cdomenech\ui\NuevaReservaController.class
+com\cdomenech\ui\WebViewController.class
 database\DBManager.class

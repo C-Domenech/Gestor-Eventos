@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import database.DBManager;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -69,6 +70,8 @@ public class ReservasController implements Initializable {
     private MenuItem mEliminar;
 
     DBManager DB = new DBManager();
+    @FXML
+    private JFXButton btnAyuda;
 
     /**
      * Method that refresh the data in the table
@@ -267,4 +270,29 @@ public class ReservasController implements Initializable {
             }
         });
     }
+    
+    @FXML
+    private void mostrarAyuda(ActionEvent event) throws URISyntaxException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("web_view.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        WebViewController controller = fxmlLoader.getController();
+
+        // Send through the controller the url
+        controller.inicializarWebView("https://eventhor-help.readthedocs.io/es/latest/guide/#reservas");
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Ayuda");
+        Image image = new Image("images/eventhor_icon.png");
+        stage.getIcons().add(image);
+        // Users are free to do what they need
+        stage.initModality(Modality.NONE);
+        stage.show();
+//        App.mostrarAyuda("https://eventhor-help.readthedocs.io/es/latest/guide/#reservas");
+    }
+
 }

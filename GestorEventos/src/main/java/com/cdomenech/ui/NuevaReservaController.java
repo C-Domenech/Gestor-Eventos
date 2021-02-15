@@ -22,15 +22,21 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import database.DBManager;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Evento;
 import models.Reserva;
@@ -244,6 +250,30 @@ public class NuevaReservaController implements Initializable {
         lbSuperior.setText("Reserva en detalle");
         btnReservar.setVisible(false);
         btnBorrar.setVisible(false);
+    }
+
+    @FXML
+    private void mostrarAyuda(ActionEvent event) throws URISyntaxException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("web_view.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        WebViewController controller = fxmlLoader.getController();
+
+        // Send through the controller the url
+        controller.inicializarWebView("https://eventhor-help.readthedocs.io/es/latest/guide/#crear-una-reserva");
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Ayuda");
+        Image image = new Image("images/eventhor_icon.png");
+        stage.getIcons().add(image);
+        // Users are free to do what they need
+        stage.initModality(Modality.NONE);
+        stage.show();
+//        App.mostrarAyuda("https://eventhor-help.readthedocs.io/es/latest/guide/#nueva-reserva");
     }
 
 }

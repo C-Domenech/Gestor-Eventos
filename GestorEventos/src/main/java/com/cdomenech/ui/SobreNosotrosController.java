@@ -17,6 +17,7 @@ package com.cdomenech.ui;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,12 @@ import javafx.scene.control.Button;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -41,6 +48,8 @@ public class SobreNosotrosController implements Initializable {
     private Button btnVistaEventos;
     @FXML
     private Button btnVistaHome;
+    @FXML
+    private JFXButton btnAyuda;
 
     /**
      * Initializes the controller class.
@@ -98,6 +107,30 @@ public class SobreNosotrosController implements Initializable {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             Desktop.getDesktop().browse(new URI("https://github.com/C-Domenech/Gestor-Eventos"));
         }
+    }
+
+    @FXML
+    private void mostrarAyuda(ActionEvent event) throws URISyntaxException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("web_view.fxml"));
+
+        Parent root = fxmlLoader.load();
+
+        WebViewController controller = fxmlLoader.getController();
+
+        // Send through the controller the url
+        controller.inicializarWebView("https://eventhor-help.readthedocs.io/es/latest/");
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Ayuda");
+        Image image = new Image("images/eventhor_icon.png");
+        stage.getIcons().add(image);
+        // Users are free to do what they need
+        stage.initModality(Modality.NONE);
+        stage.show();
+//        App.mostrarAyuda("https://eventhor-help.readthedocs.io/es/latest/");
     }
 
 }

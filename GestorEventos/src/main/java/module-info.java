@@ -9,8 +9,9 @@ module com.cdomenech.ui {
     requires com.jfoenix;
     requires java.desktop;
     requires jasperreports;
+    requires javafx.web;
 
-    opens com.cdomenech.ui to javafx.fxml, org.hibernate.orm.core;
+    opens com.cdomenech.ui to javafx.fxml, org.hibernate.orm.core, javafx.web;
     opens models;
     exports com.cdomenech.ui;
 }

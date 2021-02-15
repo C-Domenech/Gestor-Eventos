@@ -1,5 +1,6 @@
 package com.cdomenech.ui;
 
+import java.awt.Desktop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.control.ButtonBar;
@@ -91,7 +94,5 @@ public class App extends Application {
         } else {
             return false;
         }
-
     }
-
 }
