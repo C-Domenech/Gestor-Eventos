@@ -20,7 +20,7 @@ Además, el proyecto cuenta con un sistema de ayuda al usuario realizado con MkD
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia GNU General Public License - mira el archivo LICENSE para más detalles
+Este proyecto está bajo la Licencia GNU General Public License - mira el archivo [LICENSE](LICENSE) para más detalles
 
 ---
 
